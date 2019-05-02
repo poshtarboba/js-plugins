@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DateTimePicker</title>
+	<style>
+		body { margin: 0; width: 100vw; height: 100vh; overflow: hidden;}
+		input, h1 { position: absolute;}
+		.k, .n { left: 24px; }
+		.k, .l { top: 16px; }
+		.l, .m { right: 24px; }
+		.m, .n { bottom: 16px; }
+		h1 { left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; font-size: 15vh; text-align: center; color: #ff5a00;}
+		input { padding: 4px 8px; background: rgba(255, 90, 0, 0.2); border: 1px #ff5a00;}
+		.l, .n { width: 70px;}
+	</style>
+</head>
+<body>
+
+	<h1>date<br>time<br>picker</h1>
+
+	<input readonly class="d k" placeholder="Select date">
+	<input readonly class="d m" placeholder="Select date">
+	<input readonly class="t l" placeholder="select time">
+	<input readonly class="t n" placeholder="select time">
+
+	<script src="datetimepicker.js"></script>
+	<script>
+			datePicker('.d');
+			timePicker('.t');
+	</script>
+
+	<link href="datetimepicker.css" rel="stylesheet" type="text/css">
+
+</body>
+</html>

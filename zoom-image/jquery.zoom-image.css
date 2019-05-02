@@ -1,0 +1,8 @@
+#zoomImage {
+	position: absolute;
+	border: 2px solid blue;
+	overflow: hidden;
+}
+#zoomImage img {
+	position: absolute;
+}

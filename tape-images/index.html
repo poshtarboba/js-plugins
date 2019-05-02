@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tape-images plugin</title>
+<style>
+	html, body { scroll-behavior: smooth; }
+	body { color: #bbb; font: normal 18px/24px Arial, Helvetica, sans-serif; letter-spacing: 1px; background-color: #000; }
+	a { color: #fff; text-decoration: underline; }
+	a:hover { color: yellow; }
+	h2 { line-height: 1.4em; }
+	#itape { text-align:center; }
+	#itape img { display: inline-block; margin-bottom: 20px; max-width: 100%; max-height: 98vh; }
+	#itape #fullHgh:checked ~ img { max-height: none; }
+	code { display: block; padding: 12px 20px; font-size: 14px; line-height: 1.6em; background: rgba(255, 255, 255, 0.1); border: 2px dashed rgba(255, 255, 255, 0.2); }
+</style></head>
+<body>
+
+<h1>Tape-images plugin</h1>
+<p>How to use:</p>
+<code class="img">
+	&lt;input type="checkbox" id="fullHgh"&gt; Full height<br>
+	&lt;img class="class-name" src="img1.jpg" alt="Image"&gt;<br>
+	&lt;img class="class-name" src="img2.jpg" alt="Image"&gt;<br>
+	&lt;img class="class-name" src="img3.jpg" alt="Image"&gt;<br><br>
+	&lt;script src="<a href="tape-images.js" target="_blank">tape-images.js</a>"&gt;&lt;/script&gt;<br>
+	&lt;script&gt;<br>
+	&nbsp;&nbsp;addImagesNavKeys('.class-name');<br>
+	&lt;/script&gt;
+</code>
+<p>Recommended styles:</p>
+<code>
+	html, body { scroll-behavior: smooth; }<br>
+	.class-name { display: inline-block; max-width: 100%; max-height: 98vh; }<br>
+	#fullHgh:checked ~ .class-name { max-height: none; }
+</code>
+
+<div id="itape">
+	<h2>
+		Press A or Q for next or prev image.<br>
+		Press W for change image-size.
+	</h2>
+	<input type="checkbox" id="fullHgh"> Full height<br><br>
+	<img class="img" src="cat.jpg" alt="Cat"><br>
+	<img class="img" src="dog.jpg" alt="Dog"><br>
+	<img class="img" src="rat.jpg" alt="Rat"><br>
+	<img class="img" src="cat.jpg" alt="Cat"><br>
+	<img class="img" src="dog.jpg" alt="Dog"><br>
+	<img class="img" src="rat.jpg" alt="Rat"><br>
+	<img class="img" src="cat.jpg" alt="Cat"><br>
+	<img class="img" src="dog.jpg" alt="Dog"><br>
+</div>
+
+<script src="tape-images.js"></script>
+<script>
+	addImagesNavKeys('.img'); // добавляет навигацию клавишами q, a - вверх/вниз, w - переключить #fullHgh
+</script>
+</body>
+</html>

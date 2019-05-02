@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>before-after</title>
+	<meta charset="utf-8">
+	<link type="text/css" rel="stylesheet" href="before-after.css">
+	<style>
+		body {
+			padding: 10px 20px;
+			color: #333;
+			font: normal 18px/28px Helvetica, Arial, sans-serif;
+		}
+		section {
+			position: relative;
+			margin: 16px 24px 11px;
+			padding: 8px 19px 23px 11px;
+			border: 2px solid silver;
+		}
+		code {
+			display: block;
+			margin: 10px 0 20px;
+			padding: 16px 20px;
+			font-family: monospace;
+			background: #ffe;
+			border: 2px dashed #eeb;
+		}
+		.bef-af {
+			margin-bottom: 40px;
+		}
+		section .bef-af {
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Before-after</h1>
+	<p>JS-плагін before-after (2Kb + css).</p>
+	<p>JS: <a href="before-after.js" download>before-after.js</a></p>
+	<p>CSS: <a href="before-after.css" download>before-after.css</a></p>
+	<p>HTML-код, підключення і використання:</p>
+	<code>
+		&lt;link rel="stylesheet" href="before-after.css"&gt;<br><br>
+		&lt;div class="classname"&gt;<br>
+		&nbsp;&nbsp;&lt;img src="img_1.jpg" alt="before"&gt;<br>
+		&nbsp;&nbsp;&lt;img src="img_2.jpg" alt="after"&gt;<br>
+		&lt;/div&gt;<br><br>
+		&lt;script src="before-after.js"&gt;&lt;/script&gt;<br>
+		&lt;script&gt;<br>
+		&nbsp;&nbsp;beforeAfter('.classname');<br>
+		&lt;/script&gt;
+	</code>
+
+	<!-- html-код блока після обробки скриптом:
+	<div class="bef-af before-after-wrap">
+		<div class="img-wrap">
+			<div class="overflow">
+				<img src="img/before_after_1.jpg" alt="before">
+			</div>
+			<img src="img/before_after_2.jpg" alt="after">
+			<div class="separator"><span></span></div>
+		</div>
+	</div>
+	-->
+
+	<h2>Демо:</h2>
+
+	<div class="bef-af">
+		<img src="img/before_after_1.jpg" alt="before">
+		<img src="img/before_after_2.jpg" alt="after">
+	</div>
+
+	<section><section><section><section>
+	
+		<div class="bef-af">
+			<img src="img/before_after_3.jpg" alt="before">
+			<img src="img/before_after_4.jpg" alt="after">
+		</div>
+	
+	</section></section></section></section>
+
+	<div class="bef-af">
+		<img src="img/before_after_5.jpg" alt="before">
+		<img src="img/before_after_6.jpg" alt="after">
+	</div>
+
+	
+<script src="before-after.js"></script>
+<script>
+	beforeAfter('.bef-af');
+</script>
+
+</body>
+</html>

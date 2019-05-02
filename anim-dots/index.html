@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animation dots</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+			background: #f7f7f7;
+		}
+		.wrap {
+			position: relative;
+			margin: 80px 0 50px;
+			height: 400px;
+			background: #fff;
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+		}
+		.wrap canvas {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.wrap span {
+			pointer-events: none;
+			position: absolute;
+			z-index: 5;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			color: #fff;
+			font-weight: bold;
+			font-size: 120px;
+			text-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+			cursor: default;
+			opacity: 0.6;
+			filter: blur(3px);
+		}
+		.tools {
+			margin: 0;
+			padding: 0 12px;
+		}
+		.tools label,
+		.tools select {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrap">
+	<canvas></canvas>
+	<span>Animation&nbsp;dots</span>
+</div>
+
+<div class="tools">
+	<p>
+		<label>
+			<select id="distance">
+				<option>20</option>
+				<option>30</option>
+				<option selected>45</option>
+				<option>70</option>
+				<option>100</option>
+				<option>150</option>
+				<option>220</option>
+			</select>
+			- відстань між крапками, px
+		</label>
+	</p>
+	<p>
+		<label>
+			<input type="checkbox" id="noise">
+			шум
+		</label>
+		&nbsp;
+		<select id="noisesize">
+			<option>5</option>
+			<option>10</option>
+			<option selected>15</option>
+			<option>20</option>
+			<option>30</option>
+		</select>
+		px
+	</p>
+	<p>
+		<label>
+			<input type="checkbox" id="linescolors">
+			довші лінії - світліші
+		</label>
+	</p>
+	<p>
+		<label>
+			<input type="checkbox" id="swing">
+			коливання
+		</label>
+		 в межах &nbsp;
+		<select id="swingsize">
+			<option>5</option>
+			<option>10</option>
+			<option selected>15</option>
+			<option>20</option>
+			<option>30</option>
+		</select>
+		px, зі швидкістю від
+		<select id="swingspeedmin">
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>5</option>
+			<option>10</option>
+			<option>15</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option>50</option>
+			<option>70</option>
+			<option>100</option>
+		</select>
+		до
+		<select id="swingspeedmax">
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>5</option>
+			<option selected>10</option>
+			<option>15</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option>50</option>
+			<option>70</option>
+			<option>100</option>
+		</select>
+		px/с
+	</p>
+	<p>
+		Вплив миші:
+		<label><input type="radio" id="mouseturb1" name="mouseturb">немає</label>&nbsp;&nbsp;&nbsp;&nbsp;
+		<label><input type="radio" id="mouseturb2" name="mouseturb">притягування</label>&nbsp;&nbsp;&nbsp;&nbsp;
+		<label><input type="radio" id="mouseturb3" name="mouseturb" checked>відштовхування</label>&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		дистанція:
+		<select id="mousedistance">
+			<option>20</option>
+			<option>40</option>
+			<option>80</option>
+			<option selected>160</option>
+			<option>320</option>
+		</select>
+		px
+	</p>
+</div>
+
+<script src="animation-dots.js"></script>
+<script>
+(function(){
+
+	let fieldDistance = document.getElementById('distance');
+	let fieldNoise = document.getElementById('noise');
+	let fieldNoiseSize = document.getElementById('noisesize');
+	let fieldSwing = document.getElementById('swing');
+	let fieldSwingSize = document.getElementById('swingsize');
+	let fieldSwinSpeedMin = document.getElementById('swingspeedmin');
+	let fieldSwinSpeedMax = document.getElementById('swingspeedmax');
+	let fieldLinesColors = document.getElementById('linescolors');
+	let fieldMouseTurb1 = document.getElementById('mouseturb1');
+	let fieldMouseTurb2 = document.getElementById('mouseturb2');
+	let fieldMouseTurb3 = document.getElementById('mouseturb3');
+	let fieldMouseDistance = document.getElementById('mousedistance');
+
+	let options = {
+		canvas: document.querySelector('.wrap canvas'),
+	};
+
+	window.addEventListener('resize', reloadPlugin);
+	[
+		fieldDistance, fieldNoise, fieldNoiseSize, fieldSwing, fieldSwingSize,
+		fieldSwinSpeedMin, fieldSwinSpeedMax, fieldMouseTurb1, fieldMouseTurb2,
+		fieldMouseTurb3, fieldMouseDistance, fieldLinesColors
+	].forEach(function(e){ e.addEventListener('change', reloadPlugin); });
+
+	function reloadPlugin(){
+		options.distanceX = +fieldDistance.value;
+		options.noise = fieldNoise.checked;
+		options.noiseSize = +fieldNoiseSize.value;
+		options.linesColors = fieldLinesColors.checked;
+		options.swing = fieldSwing.checked;
+		options.swingSize = +fieldSwingSize.value;
+		let swigSpeed1 = +fieldSwinSpeedMin.value;
+		let swigSpeed2 = +fieldSwinSpeedMax.value;
+		options.swigSpeed = {
+			min: Math.min(swigSpeed1),
+			max: Math.max(swigSpeed2)
+		};
+		if (fieldMouseTurb1.checked) options.mouseTurb = 0;
+		if (fieldMouseTurb2.checked) options.mouseTurb = 1;
+		if (fieldMouseTurb3.checked) options.mouseTurb = -1;
+		options.mouseDistance = +fieldMouseDistance.value;
+		animationDots(options);
+	}
+
+	reloadPlugin();
+
+})();
+</script>
+
+</body>
+</html>

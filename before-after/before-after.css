@@ -1,0 +1,65 @@
+.before-after-wrap {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.before-after-wrap img {
+	display: block;
+}
+.before-after-wrap .img-wrap {
+	position: relative;
+	display: inline-block;
+}
+.before-after-wrap .overflow {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 50%;
+	overflow: hidden;
+}
+.before-after-wrap .separator {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: -4px;
+	width: 8px;
+	height: 100%;
+	background: yellow;
+	box-shadow: 0 0 8px black;
+}
+.before-after-wrap .separator span {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -24px 0 0 -24px;
+	width: 48px;
+	height: 48px;
+	background: red;
+	border-radius: 50%;
+	box-shadow: 0 0 8px black;
+	cursor: move;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.before-after-wrap .separator span:before,
+.before-after-wrap .separator span:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	width: 1px;
+	height: 1px;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+}
+.before-after-wrap .separator span:before {
+	left: 10px;
+	border-right: 6px solid yellow;
+}
+.before-after-wrap .separator span:after {
+	right: 10px;
+	border-left: 6px solid yellow;
+}

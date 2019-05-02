@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		ul { padding-bottom: 400px;}
+		li { padding: 40px 0;}
+		h1 small { font-weight: normal;}
+	</style>
+</head>
+<body>
+
+<h1>zoomImage <small>(jQuery-plugin)</small></h1>
+
+<p>
+	<label>width: <input name="width" value="600"></label>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>height: <input name="height" value="450"></label>
+	&nbsp;&nbsp;
+	<button>Activate</button>
+</p>
+
+<ul>
+	<li><img src="cat1th.jpg" alt="" data-src="cat1.jpg"></li>
+	<li><img src="cat2th.jpg" alt="" data-src="cat2.jpg"></li>
+	<li><img src="cat3th.jpg" alt="" data-src="cat3.jpg"></li>
+</ul>
+
+<script src="jquery-3.2.1.min.js"></script>
+<script src="jquery.zoom-image.js"></script>
+
+<script>
+	$('button').click(function(){
+		$('img[data-src]').zoomImage({
+			width: $('[name="width"]').val(),
+			height: $('[name="height"]').val()
+		});
+		$(this).prop('disabled', true);
+	});
+</script>
+
+<link rel="stylesheet" type="text/css" href="jquery.zoom-image.css">
+
+</body>
+</html>
+

@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Контур</title>
+<style>
+	canvas { width: 800px; height: 500px; border: 1px solid #aaa;}
+</style>
+</head>
+<body>
+
+<canvas></canvas>
+<br><br>
+<button>Clear</button>
+
+<script>
+
+	(function(){
+		
+		let points = [];
+		let canvas = document.querySelector('canvas');
+		canvas.width = 800;
+		canvas.height = 500;
+		let ctx = canvas.getContext('2d');
+		ctx.fillStyle = "yellow";
+		ctx.strokeStyle= "blue";
+		ctx.lineWidth = 2;
+		
+		btnClear();
+		canvasClick();
+		canvasMouseMove();
+		
+		function btnClear(){
+			document.querySelector('button').addEventListener('click', function(){
+				points = [];
+				canvas.classList.remove('done');
+				clearCanvas();
+			});
+		}
+
+		function canvasClick(){
+			canvas.addEventListener('click', function(e){
+				let x = e.offsetX;
+				let y = e.offsetY;
+				if (points.length > 2) {
+					let p = points[points.length - 1];
+					if (isNearFirstPoint(x, y, points[0])) {
+						canvas.classList.add('done');
+						clearCanvas();
+						drawPoints();
+						ctx.beginPath();
+						ctx.moveTo(points[0].x, points[0].y);
+						ctx.lineTo(p.x, p.y);
+						ctx.stroke();
+						ctx.closePath();
+					}
+				}
+				points.push({ x, y });
+			});
+		}
+
+		function canvasMouseMove(){
+			canvas.addEventListener('mousemove', function(e){
+				if (canvas.classList.contains('done')) return;
+				clearCanvas();
+				drawPoints();
+				drawCursor(e.offsetX, e.offsetY);
+			});
+		}
+
+		function clearCanvas(){
+			ctx.clearRect(0, 0, 800, 500);
+		}
+
+		function drawPoints(){
+			if (!points.length) return;
+			ctx.beginPath();
+			ctx.moveTo(points[0].x, points[0].y);
+			for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+			ctx.stroke();
+			ctx.closePath();
+			for (let i = 0; i < points.length; i++) {
+				ctx.beginPath();
+				ctx.ellipse(points[i].x, points[i].y, 2, 2, 0, 0, 2 * Math.PI);
+				ctx.stroke();
+				ctx.closePath();
+			}
+		}
+
+		function drawCursor(x, y){
+			if (points.length) {
+				let p = points[points.length - 1];
+				ctx.save();
+				ctx.beginPath();
+				ctx.setLineDash([10]);
+				ctx.moveTo(p.x, p.y);
+				ctx.lineTo(x, y);
+				ctx.stroke();
+				ctx.closePath();
+				ctx.restore();
+			}
+			ctx.save();
+			ctx.beginPath();
+			if (points.length > 2 && isNearFirstPoint(x, y, points[0])) ctx.strokeStyle = "red";
+			ctx.ellipse(x, y, 3, 3, 0, 0, 2 * Math.PI);
+			ctx.fill();
+			ctx.stroke();
+			ctx.closePath();
+			ctx.restore();
+		}
+		
+		function isNearFirstPoint(x, y, p){
+			let d = 10;
+			return (x > p.x - d) && (x < p.x + d) && (y > p.y - d) && (y < p.y + d);
+		}
+		
+	})();
+	
+</script>
+
+</body>
+</html>
+
