@@ -1,5 +1,13 @@
 (function(){
 
+	/* temperature */
+	function cel2far(cel){
+		return 9 / 5 * cel + 32;
+	}
+	function far2cel(far){
+		return 5 / 9 * (far - 32);
+	}
+
 	/* .css() */
 	Element.prototype.css = _Rich_css;
 	HTMLCollection.prototype.css = _Rich_css;
