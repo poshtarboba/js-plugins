@@ -1,0 +1,22 @@
+<meta charset="utf-8">
+
+<style>
+	body { margin: 0; padding: 20px; font-family: sans-serif; }
+	input { border: 5px solid orange; box-sizing: border-box; }
+	b { display: none; }
+	.drag-file input { position: fixed; z-index: 9001; left: 0; top: 0; width: 100%; height: 100%; opacity: 0.3; }
+	.drag-file b { display: block; position: fixed; z-index: 9000; left: 0; top: 0; width: 100%; height: 100%; }
+	.drag-file b::before { content: ""; position: absolute; left: 50px; top: 30px; right: 50px; bottom: 30px; background: rgba(255, 128, 0, 0.2); border: 5px dashed orange; border-radius: 30px; }
+	.drag-file b::after { content: "Drop file сюда"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 3em; color: orange; }
+</style>
+
+<body>
+	<h1>Test dtag-n-drop file</h1>
+	<input type="file"><b></b>
+</body>
+<script>
+	window.addEventListener('dragenter', fun);
+	document.querySelector('input').addEventListener('dragleave', fun);
+	document.querySelector('input').addEventListener('drop', fun);
+	function fun(e){ document.body.classList[e.type === 'dragenter' ? 'add' : 'remove']('drag-file'); }
+</script>
